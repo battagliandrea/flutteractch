@@ -28,9 +28,9 @@ class _PostListPageState extends State<PostListPage> implements PostListView {
         super.initState();
         this.widget.presenter.postListView = this;
     }
-
+    
     @override
-    void populateList(PostListViewModel viewModel) {
+    void render(PostListViewModel viewModel) {
         setState(() {
             this._viewModel = viewModel;
         });
@@ -43,33 +43,38 @@ class _PostListPageState extends State<PostListPage> implements PostListView {
                 title: new Text(widget.title),
             ),
             body: new Center(
-                child: FutureBuilder<List<Post>>(
-                    future: _viewModel.data,
-                    builder: (context, resp) {
-                        if (resp.hasData) {
-                            return _buildListView(resp.data);
-                        } else if (resp.hasError) {
-                            return Text("${resp.error}");
-                        }
-
-                        // By default, show a loading spinner
-                        return CircularProgressIndicator();
-                    },
-                ),
+                child: _buildListView()
+//                    future: _viewModel.data,
+//                    builder: (context, resp) {
+//                        if (resp.hasData) {
+//                            return ;
+//                        } else if (resp.hasError) {
+//                            return Text("${resp.error}");
+//                        }
+//
+//                        // By default, show a loading spinner
+//                        return CircularProgressIndicator();
+//                    },
             )
         );
     }
 
-    Widget _buildListView(List<Post> data) {
-        return new ListView.builder(
-            padding: const EdgeInsets.all(16.0),
+    Widget _buildListView() {
+        if(_viewModel != null){
+            if(_viewModel.isLoading){
+                return CircularProgressIndicator();
+            } else {
+                return new ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
 
-            itemCount: data.length,
+                    itemCount: _viewModel.data.length,
 
-            itemBuilder: (BuildContext _context, int i) {
-                return _buildRow(i, data[i]);
+                    itemBuilder: (BuildContext _context, int i) {
+                        return _buildRow(i, _viewModel.data[i]);
+                    }
+                );
             }
-        );
+        }
     }
 
     Widget _buildRow(int index, Post post) {

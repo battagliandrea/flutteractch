@@ -1,7 +1,14 @@
 import 'package:flutter_architecture/ui/model/post.dart';
 
 class PostListViewModel {
-    Future<List<Post>> data;
 
-    PostListViewModel(this.data);
+    List<Post> data;
+    bool isLoading;
+
+    PostListViewModel(){
+        this.isLoading = true;
+        this.data =  new List<Post>();
+    }
+
+
 }

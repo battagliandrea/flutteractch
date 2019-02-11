@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture/ui/presenter/post_list_presenter.dart';
-import 'package:flutter_architecture/ui/views/post_list_component.dart';
+import 'package:flutter_architecture/ui/views/post_list_page.dart';
 
 void main() => runApp(new MyApp());
 

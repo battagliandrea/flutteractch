@@ -20,7 +20,7 @@ class PostListPresenterImpl implements PostListPresenter {
     PostListView _mView;
 
     PostListPresenterImpl() {
-        this._mViewModel = new PostListViewModel(_fetchPost());
+        this._mViewModel = new PostListViewModel();
     }
 
     @override
@@ -31,18 +31,20 @@ class PostListPresenterImpl implements PostListPresenter {
     @override
     set postListView(PostListView value) {
         _mView = value;
-        this._mView.populateList(this._mViewModel);
+        this._mView.render(this._mViewModel);
+        _fetchPost();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //          UTILS METHOD
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Future<List<Post>> _fetchPost() async {
-        final response =
-        await http.get('https://jsonplaceholder.typicode.com/posts');
+    _fetchPost() async {
+        final response = await http.get('https://jsonplaceholder.typicode.com/posts');
+        _mViewModel.isLoading = false;
 
         if (response.statusCode == 200) {
-            return _fromJson(json.decode(response.body));
+            _mViewModel.data = _fromJson(json.decode(response.body));
+            this._mView.render(this._mViewModel);
         } else {
             throw Exception('Failed to load post');
         }
@@ -64,17 +66,4 @@ class PostListPresenterImpl implements PostListPresenter {
 
         return data;
     }
-//    @override
-//    void onButton1Clicked() {
-//       this._counterViewModel.counter++;
-//       this._counterView.refreshCounter(this._counterViewModel);
-//    }
-//
-//    @override
-//    set counterView(PostListView value) {
-//        _mView = value;
-//        this._mView.refreshCounter(this._mViewModel);
-//    }
-
-
 }
