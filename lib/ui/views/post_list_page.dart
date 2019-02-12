@@ -44,17 +44,6 @@ class _PostListPageState extends State<PostListPage> implements PostListView {
             ),
             body: new Center(
                 child: _buildListView()
-//                    future: _viewModel.data,
-//                    builder: (context, resp) {
-//                        if (resp.hasData) {
-//                            return ;
-//                        } else if (resp.hasError) {
-//                            return Text("${resp.error}");
-//                        }
-//
-//                        // By default, show a loading spinner
-//                        return CircularProgressIndicator();
-//                    },
             )
         );
     }
