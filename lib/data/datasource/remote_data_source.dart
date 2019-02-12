@@ -6,8 +6,8 @@ import 'package:flutter_architecture/framework/http/client.dart';
 import 'package:flutter_architecture/data/model/remote_post.dart';
 
 class RemoteDataSource{
-  Client _client = new Client(baseUrl: "https://randomuser.me/api/");
-  String endpoint = "?results=100";
+  Client _client = new Client(baseUrl: "https://jsonplaceholder.typicode.com");
+  String endpoint = "/posts";
 
   RemoteDataSource({Client client}) {
     _client = client != null ? client : _client;
@@ -16,9 +16,8 @@ class RemoteDataSource{
   Future<List<RemotePost>> fetchPosts() async {
     try {
       Uri url = Uri.parse(_client.baseUrl + endpoint);
-      var res = await this._client.get(url);
-      List<Map<String, dynamic>> items = res["posts"];
-      List<RemotePost> posts = items
+      List <dynamic> res = await this._client.get(url);
+      List<RemotePost> posts = res
           .map((p) => new RemotePost.fromMap(p))
           .toList();
       return posts;

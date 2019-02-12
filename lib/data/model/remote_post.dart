@@ -8,11 +8,10 @@ class RemotePost {
   
   String body;
 
-  RemotePost.fromMap(Map<String, dynamic> map)
-      :
-        userId = map['userId'],
-        id = map['id'],
-        title = map['title'],
-        body = map['body'];
 
+  RemotePost.fromMap(dynamic json) :
+        userId = json['userId'],
+        id = json['id'],
+        title = json['title'],
+        body = json['body'];
 }

@@ -1,8 +1,24 @@
-class Post {
-  final int userId;
-  final int id;
-  final String title;
-  final String body;
+import 'package:flutter_architecture/data/model/remote_post.dart';
+import 'package:flutter_architecture/data/model/post_mapper.dart';
 
-  Post({this.userId, this.id, this.title, this.body});
+class Post implements Convert<RemotePost, Post> {
+
+  int userId;
+  int id;
+  String title;
+  String body;
+
+  Post(RemotePost fromModel) {
+    userId = fromModel.userId;
+    id = fromModel.id;
+    title = fromModel.title;
+    body = fromModel.body;
+  }
+
+  @override
+  Post fromSourceModel(RemotePost fromModel) {
+    return new Post(fromModel);
+  }
+
+
 }
