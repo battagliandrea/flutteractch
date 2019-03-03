@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_architecture/data/model/remote_post.dart';
-import 'package:flutter_architecture/data/datasource/remote_datasource.dart';
+import 'package:flutter_architecture/data/datasource/datasource.dart';
+import 'package:flutter_architecture/presentation/model/model.dart';
 
 abstract class PostRepository {
-  Future<List<RemotePost>> fetchPosts();
+  Future<List<Post>> fetchPosts();
 }
 
 class PostRepositoryImpl implements PostRepository {
@@ -16,13 +16,13 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<List<RemotePost>> fetchPosts() async {
-    List<RemotePost> users = await remoteDataSource.fetchPosts();
+  Future<List<Post>> fetchPosts() async {
+    List<Post> users = await remoteDataSource.fetchPosts();
 
     if (users.length > 0) {
       return users;
     } else {
-      return new List<RemotePost>();
+      return new List<Post>();
     }
   }
 }
