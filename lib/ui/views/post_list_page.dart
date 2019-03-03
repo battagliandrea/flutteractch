@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture/ui/presenter/post_list_presenter.dart';
-import 'package:flutter_architecture/ui/viewmodel/post_list_viewmodel.dart';
-import 'package:flutter_architecture/ui/views/post_list_view.dart';
-import 'package:flutter_architecture/ui/model/post.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:flutter_architecture/ui/model/post.dart';
+import 'package:flutter_architecture/ui/bloc/post_bloc.dart';
+import 'package:flutter_architecture/ui/bloc/post_event.dart';
+import 'package:flutter_architecture/ui/bloc/post_state.dart';
 
 class PostListPage extends StatefulWidget {
-    final PostListPresenter presenter;
 
-    PostListPage(this.presenter, {Key key, this.title}) : super(key: key);
+    PostListPage({Key key, this.title}) : super(key: key);
 
     final String title;
 
@@ -16,24 +16,15 @@ class PostListPage extends StatefulWidget {
     _PostListPageState createState() => new _PostListPageState();
 }
 
-class _PostListPageState extends State<PostListPage> implements PostListView {
-
-    PostListViewModel _viewModel;
+class _PostListPageState extends State<PostListPage> {
 
     final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
-
+    final PostBloc _postBloc = PostBloc();
 
     @override
     void initState() {
         super.initState();
-        this.widget.presenter.postListView = this;
-    }
-    
-    @override
-    void render(PostListViewModel viewModel) {
-        setState(() {
-            this._viewModel = viewModel;
-        });
+        _postBloc.dispatch(Fetch());
     }
 
     @override
@@ -42,28 +33,39 @@ class _PostListPageState extends State<PostListPage> implements PostListView {
             appBar: new AppBar(
                 title: new Text(widget.title),
             ),
-            body: new Center(
-                child: _buildListView()
-            )
+            body: _buildListView()
         );
     }
 
     Widget _buildListView() {
-        if(_viewModel != null){
-            if(_viewModel.isLoading){
-                return CircularProgressIndicator();
-            } else {
-                return new ListView.builder(
-                    padding: const EdgeInsets.all(16.0),
+        return BlocBuilder(
+            bloc: _postBloc,
+            builder: (BuildContext context, PostState state){
+                if(state is PostUninitialized){
+                    return new Center(
+                        child: CircularProgressIndicator()
+                    );
+                }
 
-                    itemCount: _viewModel.data.length,
+                if(state is PostLoaded){
+                    return new Center(
+                            child: new ListView.builder(
+                            padding: const EdgeInsets.all(16.0),
+                            itemCount: state.posts.length,
+                            itemBuilder: (BuildContext _context, int i) {
+                                return _buildRow(i, state.posts[i]);
+                            }
+                        )
+                    );
+                }
 
-                    itemBuilder: (BuildContext _context, int i) {
-                        return _buildRow(i, _viewModel.data[i]);
-                    }
-                );
+                if(state is PostError){
+                    return new Center(
+                        child: Text('failed to fetch posts')
+                    );
+                }
             }
-        }
+        );
     }
 
     Widget _buildRow(int index, Post post) {

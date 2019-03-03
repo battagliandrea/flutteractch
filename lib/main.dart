@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture/ui/presenter/post_list_presenter.dart';
 import 'package:flutter_architecture/ui/views/post_list_page.dart';
 
 void main() => runApp(new MyApp());
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new PostListPage(new PostListPresenterImpl(), title: 'Flutter Demo Home Page'),
+      home: new PostListPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
