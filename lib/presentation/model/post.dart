@@ -1,5 +1,5 @@
 import 'package:flutter_architecture/data/model/remote_post.dart';
-import 'package:flutter_architecture/data/model/post_mapper.dart';
+import 'package:flutter_architecture/data/model/mapper.dart';
 
 class Post implements Convert<RemotePost, Post> {
 

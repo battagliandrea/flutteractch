@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
-
 import 'package:rxdart/rxdart.dart';
 
-import 'package:flutter_architecture/domain/usecase/fetch_post.dart';
 import 'package:flutter_architecture/injection/dependency_injection.dart';
+import 'package:flutter_architecture/domain/usecase/usecase.dart';
 
-import 'package:flutter_architecture/ui/bloc/post_event.dart';
-import 'package:flutter_architecture/ui/bloc/post_state.dart';
+
+import 'package:flutter_architecture/presentation/bloc/postlist/postlist.dart';
 
 
 class PostBloc extends Bloc<PostEvent, PostState> {

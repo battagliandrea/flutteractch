@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter_architecture/data/repository/post_repository.dart';
-import 'package:flutter_architecture/data/model/remote_post.dart';
-import 'package:flutter_architecture/ui/model/post.dart';
+import 'package:flutter_architecture/data/repository/repository.dart';
+import 'package:flutter_architecture/data/model/model.dart';
 
+import 'package:flutter_architecture/presentation/model/model.dart';
 
 class FetchPostsUseCase {
   PostRepository postRepository;

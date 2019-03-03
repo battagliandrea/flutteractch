@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_architecture/ui/model/post.dart';
-import 'package:flutter_architecture/ui/bloc/post_bloc.dart';
-import 'package:flutter_architecture/ui/bloc/post_event.dart';
-import 'package:flutter_architecture/ui/bloc/post_state.dart';
+import 'package:flutter_architecture/presentation/model/model.dart';
+import 'package:flutter_architecture/presentation/bloc/postlist/postlist.dart';
 
 class PostListPage extends StatefulWidget {
 

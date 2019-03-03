@@ -1,7 +1,8 @@
-import 'package:flutter_architecture/data/repository/post_repository.dart';
-import 'package:flutter_architecture/data/datasource/remote_data_source.dart';
 import 'package:flutter_architecture/framework/http/client.dart';
 import 'package:flutter/services.dart';
+
+import 'package:flutter_architecture/data/repository/repository.dart';
+import 'package:flutter_architecture/data/datasource/datasource.dart';
 
 enum Flavor {
   MOCK,

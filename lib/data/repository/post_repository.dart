@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_architecture/data/model/remote_post.dart';
-import 'package:flutter_architecture/data/datasource/remote_data_source.dart';
+import 'package:flutter_architecture/data/datasource/remote_datasource.dart';
 
 abstract class PostRepository {
   Future<List<RemotePost>> fetchPosts();

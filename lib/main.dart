@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture/ui/views/post_list_page.dart';
+import 'package:flutter_architecture/presentation/views/post_list_page.dart';
 
 void main() => runApp(new MyApp());
 
